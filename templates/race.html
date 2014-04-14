@@ -1,0 +1,16 @@
+<!doctype html>
+<title>wikiball race</title>
+<link href="{{ url_for('static', filename='race.css') }}">
+{% block body %}
+
+  <p>race game</p>
+
+  <div id="wiki_page">
+  {% if start_page %}
+    {{ start_page|safe }}
+  {% else %}
+    <p>wikipedia goes here</p>
+  {% endif %}
+  </div>
+
+{% endblock %}

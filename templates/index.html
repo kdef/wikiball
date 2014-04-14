@@ -1,0 +1,11 @@
+<!doctype html>
+
+<title>welcome to wikiball</title>
+
+{% block body %}
+
+  <p>This is wikiball.</p>
+  <button onclick="window.location='{{ url_for('race') }}'">race</button>
+  <button onclick="window.location='{{ url_for('clicks') }}'">clicks</button>
+
+{% endblock %}
