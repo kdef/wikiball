@@ -3,10 +3,12 @@
 <title>welcome to wikiball</title>
 
 {% block body %}
-
 <p>This is wikiball.</p>
+{% if time %}
+<p>Clicks {{ clicks }} : Time {{time}}!</p>
+{% endif %}
 <button onclick="window.location='{{ url_for('race') }}'">race</button>
 <button onclick="window.location='{{ url_for('clicks') }}'">clicks</button>
-<button onclick="window.location='{{ url_for('start') }}'">clicks</button>
+<button onclick="window.location='{{ url_for('start') }}'">TestGame</button>
 
 {% endblock %}

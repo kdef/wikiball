@@ -1,5 +1,6 @@
 import urllib2
 import re
+from time import time
 from flask import Flask, url_for, request, render_template, redirect, session, \
         escape
 app = Flask(__name__)
@@ -13,6 +14,8 @@ def start():
         session['username'] = request.form['username']
         session['start'] = request.form['start']
         session['end'] = request.form['end']
+        session['click'] = 0
+        session['sTime'] = time() 
         wiki_response = urllib2.urlopen('https://en.wikipedia.org/wiki/' + session['start'])
         return wiki_response.read()
     return '''
@@ -24,7 +27,9 @@ def start():
            </form>
        '''
 @app.route('/')
-def index():
+def index(done = None):
+    if done :
+        return  render_template('index.html', clicks=str(session['click']),time=str(session['eTime']))
     return render_template('index.html')
 
 @app.route('/race')
@@ -45,11 +50,14 @@ def page_not_found(error):
 
 @app.route('/<path:path>')
 def catch_all(path):
+    session['click'] += 1
     #check to see if we are done
     match = re.match('.*\/(.*)',path)
     if match:
         if match.group(1) == session['end'] :
-            return render_template('index.html')
+            session['eTime'] = time() - session['sTime']
+            boolean = True
+            return render_template('index.html',time=session['eTime'],clicks=session['click'])
     wiki_response = urllib2.urlopen('https://en.wikipedia.org/' + path)
     html = wiki_response.read()
     return html
