@@ -1,6 +1,7 @@
 import urllib2
+import wiki_parser
 from flask import Flask, url_for, request, render_template, redirect, session, \
-        escape
+        escape, Markup
 
 app = Flask(__name__)
 app.secret_key = 'abc123'
@@ -14,9 +15,9 @@ def index():
 def race():
     wiki_response = urllib2.urlopen('https://en.wikipedia.org/wiki/Cat')
     html = wiki_response.read()
-    # need to process the html here then throw it in a template
-    # return render_template('race.html', start_page = html)
-    return html
+    # html is a bytestring, but everyone expects unicode
+    article = wiki_parser.get_article(html.decode('utf-8'));
+    return render_template('race.html', start_page = article)
 
 @app.route('/clicks')
 def clicks():
