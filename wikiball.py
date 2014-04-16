@@ -16,28 +16,22 @@ def index():
 
 @app.route('/race')
 def race():
-    #wiki_response = urllib2.urlopen(wiki_url + 'Cat')
-    #html = wiki_response.read()
-    # html is a bytestring, but everyone expects unicode
-    #article = wiki_parser.get_article(html.decode('utf-8'));
-
-    # fix up the html for our javascript loader
-    #fixup_table = {'"':'\\"', '\n':'', '<':'&lt;', '>':'&gt;', '\\':'&bs;'}
-    #fixeda = ''.join(fixup_table.get(c,c) for c in article)
-
     return render_template('race.html', start = 'Cat', end = 'Dog')
 
 @app.route('/clicks')
 def clicks():
-    return 'Clicks game'
+    return 'clicks game'
+
+@app.route('/finish')
+def finish():
+    return 'game over'
 
 @app.route('/wiki/<page>')
 def wiki(page):
     wiki_response = urllib2.urlopen(wiki_url + page)
     html = wiki_response.read()
-    article = wiki_parser.get_article(html.decode('utf-8'));
-    return article
-
+    # html is a bytestring, but everyone expects unicode
+    return wiki_parser.get_article(html.decode('utf-8'));
 
 @app.errorhandler(404)
 def page_not_found(error):

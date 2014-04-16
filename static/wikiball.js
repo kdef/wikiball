@@ -20,9 +20,10 @@ iframe.onload = function() {
     }
 
     // otherwise the player has clicked
-    cur = frameDoc.getElementById('wiki_title').textContent;
+    cur = frameDoc.getElementById('firstHeading').textContent;
     if (cur === end) {
-        alert('Finished!')
+        alert('Finished!\nclicks: ' + numClicks + '\ntime: ' + time.textContent);
+        window.location.href = '/finish';
     }
 
     numClicks++;
