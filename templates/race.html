@@ -1,16 +1,15 @@
 <!doctype html>
 <title>wikiball race</title>
-<link href="{{ url_for('static', filename='race.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='race.css') }}" type="text/css" />
 {% block body %}
 
-  <p>race game</p>
+<div id="game">
+  <p>race from <span id="start">{{ start }}</span> to <span id="end">{{ end }}</span></p>
+  <p>clicks: <span id="clicks"></span></p>
+  <p>time: <span id="time"></span</p>
+</div>
 
-  <div id="wiki_page">
-  {% if start_page %}
-    {{ start_page|safe }}
-  {% else %}
-    <p>wikipedia goes here</p>
-  {% endif %}
-  </div>
+<div id="wiki_page"></div>
 
 {% endblock %}
+<script src="{{ url_for('static', filename='wikiball.js') }}"></script>
