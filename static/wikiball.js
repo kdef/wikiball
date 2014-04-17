@@ -20,20 +20,23 @@ iframe.onload = function() {
     }
 
     // otherwise the player has clicked
-    cur = frameDoc.getElementById('firstHeading').textContent;
-    if (cur === end) {
-        alert('Finished!\nclicks: ' + numClicks + '\ntime: ' + time.textContent);
-        window.location.href = '/finish';
-    }
-
     numClicks++;
     clicks.textContent = numClicks;
-}
+
+    // check if the game is over
+    var iframeDoc = iframe.contentWindow.document;
+    if (iframeDoc) {
+        cur = iframeDoc.getElementById('firstHeading').textContent;
+        if (cur === end) {
+            alert('Finished!\n' +
+                    'clicks: ' + numClicks + '\n' +
+                    'time: ' + time.textContent);
+            window.location.href = '/';
+        }
+    }
+};
 iframe.src = '/wiki/' + start;
 document.getElementById('wiki_page').appendChild(iframe);
-
-var frameDoc = iframe.document;
-if (iframe.contentWindow) frameDoc = iframe.contentWindow.document;
 
 // setup the timer
 function updateTimer() {

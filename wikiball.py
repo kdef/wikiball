@@ -22,10 +22,6 @@ def race():
 def clicks():
     return 'clicks game'
 
-@app.route('/finish')
-def finish():
-    return 'game over'
-
 @app.route('/wiki/<page>')
 def wiki(page):
     wiki_response = urllib2.urlopen(wiki_url + page)

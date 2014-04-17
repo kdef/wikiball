@@ -5,13 +5,12 @@ def get_article(html):
     parsed_html = BeautifulSoup(html)
 
     # grab the styles
-    styles = '\n'.join(parsed_html.head.find_all(['link', 'style']))
+    style_tags = parsed_html.head.find_all(['link', 'style'])
+    styles = '\n'.join(unicode(t) for t in style_tags)
 
     # get the article title
     title = parsed_html.body.find('h1', attrs={'id':'firstHeading'})
 
     article = parsed_html.body.find('div', attrs={'id':'bodyContent'})
-    # get rid of external links
-    article.find('div', attrs={'class':'reflist'}).decompose()
 
     return unicode(styles) + unicode(title) + unicode(article)
